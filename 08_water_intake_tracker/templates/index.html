@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Water Intake Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #e7f6ff; margin: 0; }
+    main { max-width: 520px; margin: 40px auto; background: white; padding: 24px; border-radius: 16px; }
+    label { display: block; margin-top: 12px; }
+    input { width: 100%; padding: 8px; margin-top: 4px; }
+    button { margin-top: 16px; padding: 10px 16px; }
+    .bar { height: 18px; background: #d7e7f5; border-radius: 9px; overflow: hidden; }
+    .bar span { display: block; height: 100%; background: #2f9ed8; }
+    .error { color: #a32020; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Water Intake Tracker</h1>
+    <form method="post">
+      <label>Name <input name="name" required /></label>
+      <label>Daily goal (glasses) <input name="goal" type="number" min="1" required /></label>
+      <label>Glasses consumed <input name="glasses" type="number" min="0" required /></label>
+      <button type="submit">Check progress</button>
+    </form>
+    {% if result %}
+      {% if result.error %}
+        <p class="error">{{ result.error }}</p>
+      {% else %}
+        <h2>{{ result.name }}'s progress</h2>
+        <p>{{ result.glasses }} of {{ result.goal }} glasses · {{ result.percent }}%</p>
+        <div class="bar"><span style="width: {{ result.percent }}%"></span></div>
+        {% if result.done %}
+          <p>Goal reached. Nice work.</p>
+        {% else %}
+          <p>{{ result.remaining }} glass(es) left today.</p>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </main>
+</body>
+</html>

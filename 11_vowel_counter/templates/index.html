@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Vowel Counter</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #eef6f1; }
+    main { max-width: 560px; margin: 40px auto; background: white; padding: 24px; border-radius: 16px; }
+    textarea, button { width: 100%; margin-top: 8px; padding: 8px; }
+    table { border-collapse: collapse; margin-top: 12px; }
+    td, th { border: 1px solid #ccc; padding: 6px 10px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Calculate number of vowels</h1>
+    <form method="post">
+      <label>Input string</label>
+      <textarea name="text" rows="4" required></textarea>
+      <button type="submit">Count vowels</button>
+    </form>
+    {% if result %}
+      <h2>Total vowels: {{ result.total }}</h2>
+      <p>Text: {{ result.text }}</p>
+      <table>
+        <tr><th>Vowel</th><th>Count</th></tr>
+        {% for vowel, count in result.counts.items() %}
+          <tr><td>{{ vowel }}</td><td>{{ count }}</td></tr>
+        {% endfor %}
+      </table>
+    {% endif %}
+  </main>
+</body>
+</html>

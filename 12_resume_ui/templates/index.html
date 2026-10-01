@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Resume Part 1</title>
+  <style>
+    body { font-family: Georgia, serif; background: #ece7df; margin: 0; }
+    .wrap { max-width: 880px; margin: 24px auto; display: grid; grid-template-columns: 320px 1fr; gap: 16px; }
+    form, .sheet { background: white; padding: 20px; border-radius: 12px; }
+    label { display: block; margin-top: 10px; font-size: 14px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 4px; }
+    .sheet header { border-bottom: 3px solid #1f4b6e; margin-bottom: 12px; }
+    .sheet h1 { margin-bottom: 0; color: #1f4b6e; }
+    .skills span { display: inline-block; margin: 4px 6px 0 0; padding: 4px 8px; background: #e7f0f7; border-radius: 999px; }
+    @media (max-width: 800px) { .wrap { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <form method="post">
+      <h2>Resume details</h2>
+      <label>Name <input name="name" required /></label>
+      <label>Title <input name="title" placeholder="Student developer" /></label>
+      <label>Email <input name="email" type="email" /></label>
+      <label>Phone <input name="phone" /></label>
+      <label>Summary <textarea name="summary" rows="3"></textarea></label>
+      <label>Education <textarea name="education" rows="2"></textarea></label>
+      <label>Project <textarea name="project" rows="2"></textarea></label>
+      <label>Skills (comma separated) <input name="skills" placeholder="Python, Flask, HTML" /></label>
+      <button type="submit" style="margin-top: 14px; padding: 8px 12px;">Build resume</button>
+    </form>
+    <article class="sheet">
+      {% if resume %}
+        <header>
+          <h1>{{ resume.name }}</h1>
+          <p>{{ resume.title }} · {{ resume.email }} · {{ resume.phone }}</p>
+        </header>
+        <h3>Summary</h3>
+        <p>{{ resume.summary }}</p>
+        <h3>Education</h3>
+        <p>{{ resume.education }}</p>
+        <h3>Project</h3>
+        <p>{{ resume.project }}</p>
+        <h3>Skills</h3>
+        <div class="skills">
+          {% for skill in resume.skills %}<span>{{ skill }}</span>{% endfor %}
+        </div>
+      {% else %}
+        <h1>Resume preview</h1>
+        <p>Fill in the form to design the template.</p>
+      {% endif %}
+    </article>
+  </div>
+</body>
+</html>
